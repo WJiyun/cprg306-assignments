@@ -12,6 +12,7 @@ export default function Home() {
       <p><Link href="http://localhost:3000/week-7">Go to Week-7</Link></p>
       <p><Link href="http://localhost:3000/week-8">Go to Week-8</Link></p>
       <p><Link href="http://localhost:3000/week-9">Go to Week-9</Link></p>
+      <p><Link href="http://localhost:3000/week-10">Go to Week-10</Link></p>
     </div>
   );
 }
