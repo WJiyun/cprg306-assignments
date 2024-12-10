@@ -27,9 +27,9 @@ export default function Page() {
             Logout
           </button>
           <Link href="/week-9/shopping-list">
-            <a className="py-2 px-4 bg-green-500 text-white rounded">
+            <span className="py-2 px-4 bg-green-500 text-white rounded">
               Go to Shopping List
-            </a>
+            </span>
           </Link>
         </div>
       )}
