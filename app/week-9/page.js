@@ -1,34 +1,38 @@
 "use client";
 
-import { useState } from "react";
-import ItemList from './item-list';
-import NewItem from './new-item';
-import MealIdeas from './meal-ideas';
-import itemsData from './items.json';
+import { useUserAuth } from "./_utils/auth-context";
+import Link from "next/link";
 
 export default function Page() {
-  const [items, setItems] = useState(itemsData);
-  const [selectedItemName, setSelectedItemName] = useState("");
-
-  const handleAddItem = (newItem) => {
-    setItems((prevItems) => [...prevItems, newItem]);
-  };
-
-  const handleItemSelect = (itemName) => {
-    const cleanedItemName = itemName.split(",")[0].trim().replace(/[^a-zA-Z ]/g, "");
-    setSelectedItemName(cleanedItemName);
-  };
+  const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
 
   return (
-    <div className="container mx-auto p-4 flex">
-      <div className="w-1/2">
-        <h1 className="text-2xl font-bold mb-4">Shopping List</h1>
-        <NewItem onAddItem={handleAddItem} />
-        <ItemList items={items} onItemSelect={handleItemSelect} />
-      </div>
-      <div className="w-1/2">
-        <MealIdeas ingredient={selectedItemName} />
-      </div>
+    <div className="container mx-auto p-4">
+      {!user ? (
+        <button
+          onClick={gitHubSignIn}
+          className="py-2 px-4 bg-blue-500 text-white rounded"
+        >
+          Login with GitHub
+        </button>
+      ) : (
+        <div>
+          <p>
+            Welcome, {user.displayName} ({user.email})
+          </p>
+          <button
+            onClick={firebaseSignOut}
+            className="py-2 px-4 bg-red-500 text-white rounded"
+          >
+            Logout
+          </button>
+          <Link href="/week-9/shopping-list">
+            <a className="py-2 px-4 bg-green-500 text-white rounded">
+              Go to Shopping List
+            </a>
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
